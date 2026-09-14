@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Oficio 3D - Semana 6</title>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        .escena-3d { perspective: 1000px; }
+        .puesto-3d { 
+            transform: rotateX(15deg) rotateY(-10deg); 
+            transform-style: preserve-3d; 
+            transition: transform 0.5s ease; 
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden flex flex-col md:flex-row">
+        <div class="flex-1 p-6 border-b md:border-b-0 md:border-r border-slate-700 flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="bg-red-500/20 text-red-400 text-xs px-2.5 py-1 rounded-full font-bold border border-red-500/30">🐉 DRAGON STACK</span>
+                    <span class="text-slate-400 text-sm font-semibold">Caso 1: El Cliente Exigente</span>
+                </div>
+                <h1 class="text-2xl font-bold mb-1 text-white">Simulador Oficio 3D</h1>
+                <p class="text-xs text-slate-400 mb-6">Entrenamiento adaptativo.</p>
+                <div class="escena-3d bg-slate-950 rounded-xl p-6 h-64 flex flex-col items-center justify-between border border-slate-800 relative mb-6">
+                    <div class="w-full flex justify-between text-xs font-mono text-slate-400">
+                        <div>AFLUENCIA: <span class="text-emerald-400 font-bold">ALTA</span></div>
+                        <div>ESTADO IA: <span id="valEstadoIA" class="text-amber-400 font-bold">ESPERANDO</span></div>
+                    </div>
+                    <div class="puesto-3d bg-amber-700 w-48 h-28 rounded-lg border-2 border-amber-600 flex flex-col justify-between p-2 relative my-auto">
+                        <div class="bg-red-500 w-full h-4 rounded text-[10px] text-center font-bold text-white uppercase">Antojitos Doña Mari</div>
+                        <div id="avatarCliente" class="absolute -top-12 left-1/2 transform -translate-x-1/2 text-4xl">👨‍💼</div>
+                    </div>
+                    <div class="bg-slate-800 text-slate-200 border border-slate-700 text-xs p-2.5 rounded-lg w-full text-center">
+                        <p id="burbujaTexto">"Oiga, llevo 15 minutos esperando mis tlacoyos y tengo prisa. ¿Va a tardar más?"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <button id="btnVoz" onclick="activarMicrofono()" class="w-full bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 cursor-pointer">
+                    Análisis de Voz (Web Speech API)
+                </button>
+                <div class="flex gap-2">
+                    <button onclick="procesarDecision('amable')" class="flex-1 bg-emerald-600 text-white font-medium text-xs py-2 px-3 rounded-lg cursor-pointer">Opción A: Disculparse y agilizar</button>
+                    <button onclick="procesarDecision('ofensivo')" class="flex-1 bg-rose-600 text-white font-medium text-xs py-2 px-3 rounded-lg cursor-pointer">Opción B: Responder con firmeza</button>
+                </div>
+                <p id="statusFeedback" class="text-[11px] text-center text-slate-400 italic">Simula la conversación hablando o usando los botones rápidos.</p>
+            </div>
+        </div>
+        <div class="w-full md:w-80 p-6 bg-slate-850 flex flex-col justify-between">
+            <div>
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4 border-b border-slate-700 pb-2">Métricas</h3>
+                <div class="space-y-4 mb-6">
+                    <div class="flex justify-between text-xs"><span class="text-slate-300">Finanzas</span><span id="lblGanancias" class="text-emerald-400 font-bold">$120.00</span></div>
+                    <div class="flex justify-between text-xs"><span class="text-slate-300">Estrés Operativo</span><span id="lblEstres" class="text-amber-400 font-bold">35%</span></div>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 block mb-1">JSON DE AUDITORÍA (IA):</span>
+                <pre class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-[10px] text-emerald-400 h-44 overflow-y-auto whitespace-pre-wrap shadow-inner" id="jsonBlock"></pre>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
